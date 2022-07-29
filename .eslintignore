@@ -1,0 +1,10 @@
+*.sh
+node_modules
+*.md
+.vscode
+dist
+/public
+/docs
+.husky
+.local
+Dockerfile

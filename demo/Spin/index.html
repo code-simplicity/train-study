@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Spin加载图标</title>
+		<style>
+			.spin,
+			.spin > i {
+				position: relative;
+				box-sizing: border-box;
+			}
+
+			.spin {
+				display: block;
+				font-size: 0;
+				color: rgb(255, 0, 0);
+			}
+
+			.spin.la-dark {
+				color: #333;
+			}
+
+			.spin > i {
+				display: inline-block;
+				float: none;
+				background-color: currentColor;
+				border: 0 solid currentColor;
+			}
+
+			.spin {
+				width: 64px;
+				height: 64px;
+			}
+
+			.spin > i {
+				position: absolute;
+				width: 4px;
+				height: 16px;
+				margin: 2px;
+				margin-top: -5px;
+				margin-left: -1px;
+				border-radius: 0;
+				animation: line-spin-clockwise-fade 1s infinite ease-in-out;
+			}
+
+			.spin > i:nth-child(1) {
+				top: 10%;
+				left: 50%;
+				transform: rotate(0deg);
+				animation-delay: -0.975s;
+				color: rgb(251, 201, 201);
+			}
+
+			.spin > i:nth-child(2) {
+				top: 20%;
+				left: 70%;
+				transform: rotate(30deg);
+				animation-delay: -0.875s;
+				color: rgb(249, 161, 161);
+			}
+
+			.spin > i:nth-child(3) {
+				top: 32%;
+				left: 82%;
+				transform: rotate(60deg);
+				animation-delay: -0.825s;
+				color: rgb(253, 141, 141);
+			}
+
+			.spin > i:nth-child(4) {
+				top: 50%;
+				left: 86%;
+				transform: rotate(90deg);
+				animation-delay: -0.765s;
+				color: rgb(252, 128, 128);
+			}
+
+			.spin > i:nth-child(5) {
+				top: 64%;
+				left: 82%;
+				transform: rotate(120deg);
+				animation-delay: -0.675s;
+				color: rgb(248, 105, 105);
+			}
+
+			.spin > i:nth-child(6) {
+				top: 76%;
+				left: 70%;
+				transform: rotate(150deg);
+				animation-delay: -0.575s;
+				color: rgb(251, 92, 92);
+			}
+
+			.spin > i:nth-child(7) {
+				top: 80%;
+				left: 50%;
+				transform: rotate(180deg);
+				animation-delay: -0.525s;
+				color: rgb(252, 79, 79);
+			}
+
+			.spin > i:nth-child(8) {
+				top: 76%;
+				left: 28%;
+				transform: rotate(210deg);
+				animation-delay: -0.475s;
+				color: rgb(255, 65, 65);
+			}
+
+			.spin > i:nth-child(9) {
+				top: 64%;
+				left: 16%;
+				transform: rotate(240deg);
+				animation-delay: -0.425s;
+				color: rgb(248, 47, 47);
+			}
+
+			.spin > i:nth-child(10) {
+				top: 50%;
+				left: 11%;
+				transform: rotate(270deg);
+				animation-delay: -0.325s;
+				color: rgb(254, 33, 33);
+			}
+
+			.spin > i:nth-child(11) {
+				top: 32%;
+				left: 12%;
+				transform: rotate(300deg);
+				animation-delay: -0.225s;
+				color: rgb(253, 24, 24);
+			}
+
+			.spin > i:nth-child(12) {
+				top: 20%;
+				left: 24%;
+				transform: rotate(320deg);
+				animation-delay: 0s;
+				color: rgb(255, 0, 0);
+			}
+
+			@keyframes line-spin-clockwise-fade {
+				50% {
+					opacity: 0.2;
+				}
+
+				100% {
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="spin">
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+		</div>
+	</body>
+</html>
