@@ -2,8 +2,8 @@
  * @Author: bugdr
  * @Date: 2022-07-25 16:34:03
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-27 17:28:18
- * @FilePath: \hello-world\40308-dupeiyi\packages\train-study\src\layouts\index.tsx
+ * @LastEditTime: 2022-07-29 12:49:52
+ * @FilePath: \train-study\src\layouts\index.tsx
  * @Description:
  */
 import { Layout } from 'antd';
@@ -18,14 +18,8 @@ const LayoutApp: FC = () => {
         <>
             <Layout>
                 <LayoutHeader />
-                <Layout
-                    style={{
-                        position: 'relative',
-                    }}
-                >
-                    <LayoutContent />
-                    <LayoutFooter />
-                </Layout>
+                <LayoutContent />
+                <LayoutFooter />
             </Layout>
         </>
     );

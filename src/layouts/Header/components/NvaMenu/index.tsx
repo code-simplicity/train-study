@@ -2,24 +2,34 @@
  * @Author: bugdr
  * @Date: 2022-07-25 21:59:29
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-28 22:28:08
- * @FilePath: \hello-world\40308-dupeiyi\packages\train-study\src\layouts\Header\components\NvaMenu\index.tsx
+ * @LastEditTime: 2022-07-29 13:09:48
+ * @FilePath: \train-study\src\layouts\Header\components\NvaMenu\index.tsx
  * @Description:
  */
 import { AppleOutlined, HomeOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const NvaMenu: FC = () => {
     const items = [
-        { label: '首页', key: 'home', icon: <HomeOutlined /> }, // 菜单项务必填写 key
-        { label: '日记', key: 'todo', icon: <AppleOutlined /> },
+        { label: '首页', key: '/home', icon: <HomeOutlined /> }, // 菜单项务必填写 key
+        { label: '日记', key: '/todo', icon: <AppleOutlined /> },
     ];
+    // 获取路由路径
+    const { pathname } = useLocation();
+    console.log('pathname', pathname);
+    // 当前选着的菜单的key
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
+
+    useEffect(() => {
+        setSelectedKeys([pathname]);
+    }, [pathname]);
+
     // 路由跳转的hooks
     const navigate = useNavigate();
     // 选择对应的路由进行跳转
-    const onSelect = (menuList: any) => {
+    const clickMenu = (menuList: any) => {
         // 结构出key
         const { key } = menuList;
         // 跳转路由
@@ -28,7 +38,13 @@ const NvaMenu: FC = () => {
 
     return (
         <>
-            <Menu mode='horizontal' items={items} onSelect={onSelect} />
+            <Menu
+                mode='horizontal'
+                selectedKeys={selectedKeys}
+                defaultSelectedKeys={selectedKeys}
+                items={items}
+                onClick={clickMenu}
+            />
         </>
     );
 };
