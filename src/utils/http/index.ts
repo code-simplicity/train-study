@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-29 14:48:07
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-29 16:21:40
+ * @LastEditTime: 2022-07-29 20:03:17
  * @FilePath: \train-study\src\utils\http\index.ts
  * @Description:
  */
@@ -37,7 +37,6 @@ class RequestHttp {
         this.service.interceptors.response.use(
             (response: AxiosResponse) => {
                 const { data, config } = response;
-                console.log('data', data);
                 // 请求完成之后移除本次请求
                 axiosCanceler.removePending(config);
                 // 全局拦截返回的data.code的字段值不为20000,那么就默认是请求失败了
@@ -51,7 +50,7 @@ class RequestHttp {
             },
             async (error: AxiosError) => {
                 const { response } = error;
-                console.log('response', response);
+                console.log('error', error);
                 // 判断请求是否超时
                 if (error.message.indexOf('timeout') !== -1) message.error('请求超时，请稍后再试');
                 // 工具返回错误的信息，执行对应的提示
@@ -64,23 +63,23 @@ class RequestHttp {
     }
 
     // get方法封装
-    get<T>(url: string, params?: object, _object = {}): Promise<IResponseResult<T>> {
+    get<T>(url: string, params?: T, _object = {}): Promise<IResponseResult<T>> {
         return this.service.get(url, { params, ..._object });
     }
     // post方法封装
-    post<T>(url: string, params?: object, _object = {}): Promise<IResponseResult<T>> {
+    post<T>(url: string, params?: T, _object = {}): Promise<IResponseResult<T>> {
         return this.service.post(url, params, _object);
     }
     // put方法封装
-    put<T>(url: string, params?: object, _object = {}): Promise<IResponseResult<T>> {
+    put<T>(url: string, params?: T, _object = {}): Promise<IResponseResult<T>> {
         return this.service.put(url, params, _object);
     }
-    delete<T>(url: string, params?: object, _object = {}): Promise<IResponseResult<T>> {
+    delete<T>(url: string, params?: T, _object = {}): Promise<IResponseResult<T>> {
         return this.service.delete(url, { params, ..._object });
     }
 }
 
 // 创建一个实例
-const RAxios = new RequestHttp(axiosConfig);
+const defHttp = new RequestHttp(axiosConfig);
 
-export default RAxios;
+export default defHttp;

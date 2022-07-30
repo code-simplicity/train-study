@@ -6,12 +6,9 @@
  * @FilePath: \hello-world\40308-dupeiyi\packages\train-study\src\App.tsx
  * @Description:
  */
-import React, { Suspense } from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import SpinLoading from './components/SpinLoading';
-import LayoutApp from './layouts';
+import React from 'react';
+import { HashRouter } from 'react-router-dom';
 import Router from './router';
-import staticRoutes from './router';
 import './styles/App.less';
 
 function App() {

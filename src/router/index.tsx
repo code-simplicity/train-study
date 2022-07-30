@@ -27,7 +27,7 @@ import TodoRouter from './modules/todo';
 const staticRoutes: IRouter[] = [
     {
         path: '/',
-        element: <Navigate to='/home/index' />,
+        element: <Navigate to='/home' />,
     },
     HomeRouter,
     TodoRouter,

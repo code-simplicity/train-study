@@ -1,6 +1,18 @@
 // const CracoLessPlugin = require('craco-less');
-const CracoAntDesignPlugin = require('craco-antd');
 const path = require('path');
+// mock 插件
+const MockServicePlugin = require('mock-service-plugin');
+const { whenDev } = require('@craco/craco');
+const CracoAntDesignPlugin = require('craco-antd');
+
+const {
+    REACT_APP_ENV, // 环境标识
+} = process.env;
+
+// 连接路径
+const pathResolve = pathUrl => path.join(__dirname, pathUrl);
+
+// 解析路径
 const resolve = dir => path.resolve(__dirname, dir);
 module.exports = {
     babel: {
@@ -34,5 +46,30 @@ module.exports = {
         alias: {
             '@': resolve('src'),
         },
+        // plugins: [
+        //     ...whenDev(
+        //         () => [
+        //             new MockServicePlugin({
+        //                 path: path.join(__dirname, './src/mocks'),
+        //                 port: 8090,
+        //             }),
+        //         ],
+        //         [],
+        //     ),
+        // ],
     },
+
+    // // 服务器
+    // devServer: {
+    //     proxy: {
+    //         '/api': {
+    //             target: 'http://localhost:3000',
+    //             // changeOrigin: true, // 开启同源
+    //             // 路径重写
+    //             // pathRewrite: {
+    //             //     '^/api': '',
+    //             // },
+    //         },
+    //     },
+    // },
 };
