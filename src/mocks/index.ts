@@ -1,8 +1,9 @@
 const Mock = require('mockjs');
 
-import userMock from './user';
+import videoMock from './video';
+// import VideoMock from './video';
 
-const mocksService = [...userMock];
+const mocksService = [...videoMock];
 
 mocksService.map(item => {
     console.log('item', item);

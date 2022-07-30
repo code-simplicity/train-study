@@ -1,14 +1,37 @@
 /*
  * @Author: bugdr
- * @Date: 2022-07-30 20:49:19
+ * @Date: 2022-07-29 18:45:16
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 20:54:02
+ * @LastEditTime: 2022-07-29 20:02:14
  * @FilePath: \train-study\src\mocks\video\index.ts
  * @Description:
  */
-import Mock from 'mockjs'; //引入Mock
+import Mock from 'mockjs';
+import { pageFilter } from 'src/utils';
+import { videoListData } from './data';
 
-export default Mock.mock('/list', {
-    // 随机生成长度为3的list数组，数组元素是3-10个字范围内的中文单词
-    'list|3': ['@cword(3,10)'],
-});
+type Tbody = {
+    body: any;
+};
+
+// 数据模拟
+const videoMock = [
+    {
+        url: '/video/list', // 获取视频列表
+        method: 'post',
+        response: ({ body }: Tbody) => {
+            const { page, pageSize } = JSON.parse(body);
+            console.log('videoListData', videoListData());
+            // 循环数据生成60条数据
+            const listData = videoListData();
+            const result = pageFilter(listData, page, pageSize);
+            return {
+                code: 20000,
+                data: result,
+                msg: '获取视频成功',
+            };
+        },
+    },
+];
+
+export default videoMock;

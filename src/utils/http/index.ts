@@ -36,10 +36,11 @@ class RequestHttp {
         // 响应拦截
         this.service.interceptors.response.use(
             (response: AxiosResponse) => {
-                debugger;
+                // debugger;
+
                 const { data } = response;
                 // 全局拦截返回的data.code的字段值不为20000,那么就默认是请求失败了
-                if (data.code && data.code !== ResultCodeEnum.SUCCESS) {
+                if (data.code !== ResultCodeEnum.SUCCESS) {
                     // 提示出错
                     message.error(data.msg);
                     return Promise.reject(data);
@@ -55,7 +56,7 @@ class RequestHttp {
                 if (response) return checkStatus(response.status);
                 // 服务器结果都没有返回(可能服务器错误可能客户端断网) 断网处理:可以跳转到断网页面
                 if (!window.navigator.onLine) return (window.location.hash = '/500');
-                return Promise.reject(error);
+                // return Promise.reject(error);
             },
         );
     }

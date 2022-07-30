@@ -25,3 +25,31 @@ export const resolveRoute = (modules: any) => {
     });
     return routeModuleList;
 };
+
+// 数据分页
+export function pageFilter(arr: any[], page: number, pageSize: number) {
+    // 页数
+    let newPage = page;
+    newPage = newPage * 1;
+    // 每页数量
+    let newPageSize = pageSize;
+    newPageSize = newPageSize * 1;
+    // 总数
+    const total = arr.length;
+    // 页数
+    const pages = Math.floor((total + newPageSize - 1) / newPageSize);
+    const start = newPageSize * (newPage - 1);
+    const end = start + newPageSize <= total ? start + newPageSize : total;
+    // 数据
+    const list = [];
+    for (let i = start; i < end; i++) {
+        list.push(arr[i]);
+    }
+    return {
+        page: newPage,
+        pageSize: newPageSize,
+        total,
+        pages,
+        list,
+    };
+}
