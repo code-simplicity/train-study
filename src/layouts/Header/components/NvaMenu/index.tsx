@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-25 21:59:29
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 10:58:46
+ * @LastEditTime: 2022-07-30 12:02:29
  * @FilePath: \train-study\src\layouts\Header\components\NvaMenu\index.tsx
  * @Description:
  */
@@ -13,7 +13,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const NvaMenu: FC = () => {
     const items = [
-        { label: '应用市场', key: '/app', icon: <HomeOutlined /> }, // 菜单项务必填写 key
+        { label: '应用市场', key: '/app/video-center' }, // 菜单项务必填写 key
         { label: '开发者', key: '/developer', icon: <AppleOutlined /> },
         { label: '社区与合作伙伴', key: '/communities', icon: <AppleOutlined /> },
         { label: '支持与服务', key: '/support-services', icon: <AppleOutlined /> },

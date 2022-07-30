@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-27 13:42:01
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 10:57:56
+ * @LastEditTime: 2022-07-30 12:03:24
  * @FilePath: \train-study\src\router\index.tsx
  * @Description:路由组件
  */
@@ -28,7 +28,7 @@ import developerRouter from './modules/developer';
 const staticRoutes: IRouter[] = [
     {
         path: '/',
-        element: <Navigate to='/app' />,
+        element: <Navigate to='/app/video-center' />,
     },
     HomeRouter,
     developerRouter,

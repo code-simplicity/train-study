@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-27 16:46:08
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 10:55:50
+ * @LastEditTime: 2022-07-30 12:03:51
  * @FilePath: \train-study\src\router\modules\app\index.tsx
  * @Description:首页的菜单和路由
  */
@@ -19,23 +19,15 @@ const appRouter: IRouter = {
                 title: '首页',
                 key: 'App',
             },
-            element: lazyLoad(lazy(() => import('src/pages/Home'))),
+            // element: lazyLoad(lazy(() => import('src/pages/Home'))),
             children: [
                 {
-                    path: '/app/synthesis',
+                    path: '/app/video-center',
                     meta: {
-                        title: '综合',
-                        key: 'synthesis',
+                        title: '视频中心',
+                        key: 'videoCenter',
                     },
-                    element: lazyLoad(lazy(() => import('src/pages/Home/Synthesis'))),
-                },
-                {
-                    path: '/app/attention',
-                    meta: {
-                        title: '关注',
-                        key: 'attention',
-                    },
-                    element: lazyLoad(lazy(() => import('src/pages/Home/Attention'))),
+                    element: lazyLoad(lazy(() => import('src/pages/Home/VideoCenter'))),
                 },
             ],
         },

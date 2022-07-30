@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-29 12:14:00
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 11:38:20
+ * @LastEditTime: 2022-07-30 12:12:18
  * @FilePath: \train-study\src\layouts\Header\index.tsx
  * @Description:
  */
@@ -18,10 +18,10 @@ const LayoutHeader: FC = () => {
             <div className='ml-8 w-36 min-w-36'>
                 <AppLogo />
             </div>
-            <div className='w-8/12'>
+            <div className='w-9/12'>
                 <NvaMenu />
             </div>
-            <div className='flex-1 h-full w-4/12'>
+            <div className='h-full w-3/12'>
                 <RightHeader />
             </div>
         </header>
