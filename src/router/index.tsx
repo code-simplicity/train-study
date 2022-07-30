@@ -2,14 +2,15 @@
  * @Author: bugdr
  * @Date: 2022-07-27 13:42:01
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-29 12:48:47
+ * @LastEditTime: 2022-07-30 10:57:56
  * @FilePath: \train-study\src\router\index.tsx
  * @Description:路由组件
  */
 import React from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
-import HomeRouter from './modules/home';
-import TodoRouter from './modules/todo';
+import HomeRouter from './modules/app';
+import developerRouter from './modules/developer';
+// import TodoRouter from './modules/todo';
 
 // 编写一个函数获取到router下面的modules文件夹路径下的文件组合
 // const metaRouters = require.context('./modules', true, /\.tsx$/);
@@ -27,10 +28,11 @@ import TodoRouter from './modules/todo';
 const staticRoutes: IRouter[] = [
     {
         path: '/',
-        element: <Navigate to='/home' />,
+        element: <Navigate to='/app' />,
     },
     HomeRouter,
-    TodoRouter,
+    developerRouter,
+    // TodoRouter,
     // ...routerArray,
 ];
 

@@ -2,27 +2,27 @@
  * @Author: bugdr
  * @Date: 2022-07-27 16:46:08
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-29 11:25:07
- * @FilePath: \hello-world\40308-dupeiyi\packages\train-study\src\router\modules\home\index.tsx
+ * @LastEditTime: 2022-07-30 10:55:50
+ * @FilePath: \train-study\src\router\modules\app\index.tsx
  * @Description:首页的菜单和路由
  */
 import { lazy } from 'react';
 import LayoutRouter from '../../constant';
 import lazyLoad from '../../lazyLoad';
 
-const HomeRouter: IRouter = {
+const appRouter: IRouter = {
     element: <LayoutRouter />,
     children: [
         {
-            path: '/home',
+            path: '/app',
             meta: {
                 title: '首页',
-                key: 'Home',
+                key: 'App',
             },
             element: lazyLoad(lazy(() => import('src/pages/Home'))),
             children: [
                 {
-                    path: '/home/synthesis',
+                    path: '/app/synthesis',
                     meta: {
                         title: '综合',
                         key: 'synthesis',
@@ -30,7 +30,7 @@ const HomeRouter: IRouter = {
                     element: lazyLoad(lazy(() => import('src/pages/Home/Synthesis'))),
                 },
                 {
-                    path: '/home/attention',
+                    path: '/app/attention',
                     meta: {
                         title: '关注',
                         key: 'attention',
@@ -42,4 +42,4 @@ const HomeRouter: IRouter = {
     ],
 };
 
-export default HomeRouter;
+export default appRouter;
