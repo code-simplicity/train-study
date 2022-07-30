@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-30 10:59:55
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 11:56:19
+ * @LastEditTime: 2022-07-30 20:16:24
  * @FilePath: \train-study\src\layouts\Header\components\RightHeader\index.tsx
  * @Description:头部右侧组件
  */
@@ -11,24 +11,18 @@ import { Avatar, Badge, Button, Dropdown, Image, Menu, Space } from 'antd';
 import React, { FC } from 'react';
 import userAvatar from 'src/assets/images/头像.svg';
 import notice from 'src/assets/images/通知.svg';
+import searchIcon from 'src/assets/images/Group_10.svg';
 
 const menu = (
     <Menu
         items={[
             {
-                label: '1st menu item',
+                label: '个人中心',
                 key: '1',
-                icon: <UserOutlined />,
             },
             {
-                label: '2nd menu item',
+                label: '退出登陆',
                 key: '2',
-                icon: <UserOutlined />,
-            },
-            {
-                label: '3rd menu item',
-                key: '3',
-                icon: <UserOutlined />,
             },
         ]}
     />
@@ -37,8 +31,8 @@ const menu = (
 const RightHeader: FC = () => {
     return (
         <div className='flex items-center justify-between bg-light-400 h-full px-4 text-base'>
-            <SearchOutlined />
-            <Badge count={99}>
+            <Image src={searchIcon} preview={false} />
+            <Badge size='small' count={`99`} offset={[8, 1]}>
                 <Image src={notice} alt='通知' preview={false} />
             </Badge>
             <div className='cursor-pointer'>控制台</div>

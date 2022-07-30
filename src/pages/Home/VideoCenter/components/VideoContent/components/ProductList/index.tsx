@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-30 16:30:23
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 16:57:47
+ * @LastEditTime: 2022-07-30 17:12:56
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\VideoContent\components\ProductList\index.tsx
  * @Description:左侧产品列表
  */
@@ -75,7 +75,7 @@ const ProductList = () => {
                         onClick={() => handleActive(item.id)}
                         className={`px-4 py-2 h-10 cursor-pointer ${
                             item.id === productMenuActivate
-                                ? 'bg-yellow-100 bg-opacity-65 text-yellow-600 font-black'
+                                ? 'bg-yellow-100 bg-opacity-65 text-yellow-600 font-black border-l-2 border-yellow-500'
                                 : ''
                         } `}
                     >

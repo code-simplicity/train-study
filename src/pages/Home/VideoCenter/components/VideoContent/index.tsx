@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-30 12:08:35
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 16:49:18
+ * @LastEditTime: 2022-07-30 18:53:18
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\VideoContent\index.tsx
  * @Description:内容组件
  */
@@ -21,11 +21,11 @@ const VideoContent: FC = () => {
             <div className='md:flex-1'>
                 <VideoClassify />
                 {/* 栅格布局实现九宫格 */}
-                <div className='grid grid-cols-3 gap-4'>
+                <div className='grid grid-cols-3 gap-6'>
                     <VideoList />
                 </div>
                 {/* 分页 */}
-                <div className='flex items-center justify-end'>
+                <div className='flex items-center justify-end mt-2'>
                     <CPagination defaultCurrent={1} total={20} pageSize={1} current={1} />
                 </div>
             </div>
