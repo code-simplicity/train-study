@@ -1,3 +1,5 @@
+import { randomNumber } from '../utils';
+
 export const videoListData = () => {
     const videoList: IVideoList[] = [];
     for (let i = 1; i <= 60; i++) {
@@ -11,8 +13,8 @@ export const videoListData = () => {
             sections: `${i + 10}`, // 节数
             top: true, // 是否置顶
             duration: '01:20:16', // 时长
-            productId: `prI${i}`, // 产品id
-            videoCategoryId: `vcI${i}`, // 视频分类id
+            productId: randomNumber('prI'), // 产品id
+            videoCategoryId: randomNumber('vcI'), // 视频分类id
         };
         videoList.push(data);
     }

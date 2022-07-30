@@ -6,34 +6,17 @@
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\VideoContent\components\VideoList\index.tsx
  * @Description:
  */
-import React, { useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { PlaySquareOutlined } from '@ant-design/icons';
-import { Image, message } from 'antd';
+import { Image } from 'antd';
 import videoTopIcon from 'src/assets/images/videoTop.svg';
-import { ResultCodeEnum } from 'src/enum/http';
-import { getVideoList } from 'src/api/video';
 
-const VideoList = () => {
-    const [videoList, setVideoList] = useState<IVideoList[]>([]);
-    // 获取一个接口试试
-    const initVideoList = async () => {
-        const params = {
-            page: 1,
-            pageSize: 9,
-        };
-        try {
-            const data = await getVideoList(params);
-            if (data.code !== ResultCodeEnum.SUCCESS) return;
-            message.success(data.msg);
-            setVideoList(data.data.list);
-            console.log('data :>> ', data);
-        } catch (error: any) {
-            return new Error(error);
-        }
-    };
-    useEffect(() => {
-        initVideoList();
-    }, []);
+interface IVideoListProps {
+    videoList: IVideoList[];
+}
+
+const VideoList: FC<IVideoListProps> = (props: IVideoListProps) => {
+    const { videoList } = props;
     return (
         <>
             {videoList.map(item => {

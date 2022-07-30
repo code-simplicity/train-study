@@ -7,11 +7,19 @@
  * @Description:视频分类列表
  */
 import { message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { getVideoListByVideoCategoryId } from 'src/api/video';
 import { getVideoCategoryList } from 'src/api/videoCategory';
 import { ResultCodeEnum } from 'src/enum/http';
 
-const VideoClassify = () => {
+interface IVideoClassifyProps {
+    setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
+    initVideoList: any;
+}
+
+const VideoClassify: FC<IVideoClassifyProps> = (props: IVideoClassifyProps) => {
+    const { setVideoList, initVideoList } = props;
+
     const [videoCategoryList, setVideoCategoryList] = useState<IVideoCategory[]>([]);
     // 获取一个接口试试
     const initVideoCategoryList = async () => {
@@ -20,7 +28,6 @@ const VideoClassify = () => {
             if (code !== ResultCodeEnum.SUCCESS) return message.error('获取视频分类列表失败');
             message.success(msg);
             setVideoCategoryList(data);
-            console.log('videoCategoryList :>> ', videoCategoryList);
         } catch (error: any) {
             return new Error(error);
         }
@@ -30,8 +37,23 @@ const VideoClassify = () => {
     }, []);
     // 激活左侧栏的key
     const [videoClassifyActivate, setVideoClassifyActivate] = useState<string>('all');
-    const handleActive = (id: string) => {
+    const handleActive = async (id: string) => {
         setVideoClassifyActivate(id);
+        const params = {
+            videoCategoryId: id,
+            page: 1,
+            pageSize: 9,
+        };
+        try {
+            // 如果id等于这个就走初始化
+            if (id === 'all') return initVideoList();
+            const { code, msg, data } = await getVideoListByVideoCategoryId(params);
+            if (code !== ResultCodeEnum.SUCCESS) return message.error(msg);
+            message.success(msg);
+            setVideoList(data.list);
+        } catch (error: any) {
+            return new Error(error);
+        }
     };
     return (
         <>

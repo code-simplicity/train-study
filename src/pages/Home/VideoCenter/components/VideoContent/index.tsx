@@ -6,23 +6,32 @@
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\VideoContent\index.tsx
  * @Description:内容组件
  */
-import React, { FC } from 'react';
+import { message } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import { getVideoList } from 'src/api/video';
 import CPagination from 'src/components/CPagination';
 import ProductList from './components/ProductList';
 import VideoClassify from './components/VideoClassify';
 import VideoList from './components/VideoList';
 
-const VideoContent: FC = () => {
+interface IVideoContentProps {
+    setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
+    initVideoList: any;
+    videoList: IVideoList[];
+}
+
+const VideoContent: FC<IVideoContentProps> = (props: IVideoContentProps) => {
+    const { videoList, setVideoList, initVideoList } = props;
     return (
         <div className='flex'>
             <div className='w-60 bg-white rounded mr-4'>
-                <ProductList />
+                <ProductList setVideoList={setVideoList} initVideoList={initVideoList} />
             </div>
             <div className='md:flex-1'>
-                <VideoClassify />
+                <VideoClassify setVideoList={setVideoList} initVideoList={initVideoList} />
                 {/* 栅格布局实现九宫格 */}
                 <div className='grid grid-cols-3 gap-6'>
-                    <VideoList />
+                    <VideoList videoList={videoList} />
                 </div>
                 {/* 分页 */}
                 <div className='flex items-center justify-end mt-2'>

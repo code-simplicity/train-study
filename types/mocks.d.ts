@@ -12,7 +12,7 @@ interface IVideoList {
     cover?: string; // 背景图片
     playCounts?: string; // 播放数量
     title?: string; // 标题
-    labels?: string[]; // 标签
+    labels: string[]; // 标签
     description?: string; // 描述
     sections?: string; // 节数
     top?: boolean; // 是否置顶

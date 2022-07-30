@@ -7,26 +7,46 @@
  * @Description:搜索头部组件
  */
 import React, { FC, useRef } from 'react';
-import { Button, Image, Input } from 'antd';
+import { Button, Image, Input, message } from 'antd';
 import videoSearchBg from 'src/assets/images/videoSearchBg.png';
+import { searchVideoList } from 'src/api/video';
+import { ResultCodeEnum } from 'src/enum/http';
 
 interface VideoSearchProps {
-    setIsSearch?: any;
+    setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
+    initVideoList: any;
+    setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
 }
 
 const VideoSearch: FC<VideoSearchProps> = (props: VideoSearchProps) => {
-    const { setIsSearch } = props;
+    const { setIsSearch, initVideoList, setVideoList } = props;
     // 输入框的ref
     const searchInputRef = useRef<any>();
     // 输入框回车事件
     // 监听输入框的值是否改变，并且变为空，如果变为空那么就不进行搜索
-    const handleSearch = () => {
+    const handleSearch = async () => {
         // 如果输入框的存在值
         if (searchInputRef.current!.input.value && searchInputRef.current!.input.value !== '') {
-            // 触发搜索
-            setIsSearch(true);
+            try {
+                // 触发搜索
+                setIsSearch(true);
+                const params = {
+                    title: searchInputRef.current!.input.value,
+                    page: 1,
+                    pageSize: 10,
+                };
+                const { data, code, msg } = await searchVideoList(params);
+                if (code !== ResultCodeEnum.SUCCESS) return message.error(msg);
+                message.success(msg);
+                setVideoList(data.list);
+            } catch (error: any) {
+                return new Error(error);
+            }
         } else if (searchInputRef.current!.input.value === '') {
             setIsSearch(false);
+            message.error('您好像未输入关键字哦！！！');
+            // 这里有待优化
+            initVideoList();
         }
     };
     return (

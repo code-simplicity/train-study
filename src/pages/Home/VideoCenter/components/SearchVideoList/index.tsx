@@ -9,15 +9,21 @@
 import { PlaySquareOutlined } from '@ant-design/icons';
 import { Image } from 'antd';
 import React, { FC } from 'react';
-import videoList from '../VideoContent/components/data';
 import styles from './index.module.less';
 
-const SearchVideoList: FC = () => {
+interface ISearchVideoListProps {
+    videoList: IVideoList[];
+}
+
+const SearchVideoList: FC<ISearchVideoListProps> = (props: ISearchVideoListProps) => {
+    const { videoList } = props;
+
     return (
         <div>
             {/* 搜索结果 */}
             <div className='bg-white flex items-center px-3 py-2 mb-4 rounded-sm'>
-                共找到{<span>1</span>}个{<span>“{1}”</span>}相关视频
+                共找到{<span className='text-yellow-600 mx-1'>{videoList.length}</span>}个
+                {<span className='text-yellow-600 mx-1'>“{1}”</span>}相关视频
             </div>
             {/* 搜索视频列表 */}
             {videoList.map(item => {

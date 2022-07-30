@@ -7,15 +7,38 @@
  * @Description:左侧产品列表
  */
 import { message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { getProductList } from 'src/api/product';
+import { getVideoListByProductId } from 'src/api/video';
 import { ResultCodeEnum } from 'src/enum/http';
 
-const ProductList = () => {
+interface IProductListProps {
+    setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
+    initVideoList: any;
+}
+
+const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
+    const { setVideoList, initVideoList } = props;
     // 激活左侧栏的key
     const [productMenuActivate, setProductMenuActivate] = useState<string>('all');
-    const handleActive = (id: string) => {
+    // 点击切换实现产品获取视频列表
+    const handleActive = async (id: string) => {
         setProductMenuActivate(id);
+        const params = {
+            productId: id,
+            page: 1,
+            pageSize: 9,
+        };
+        try {
+            // 如果id等于这个就走初始化
+            if (id === 'all') return initVideoList();
+            const { code, msg, data } = await getVideoListByProductId(params);
+            if (code !== ResultCodeEnum.SUCCESS) return message.error(msg);
+            message.success(msg);
+            setVideoList(data.list);
+        } catch (error: any) {
+            return new Error(error);
+        }
     };
     const [productList, setProductList] = useState<IProduct[]>([]);
     // 获取产品列表

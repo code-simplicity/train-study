@@ -6,7 +6,6 @@ const productMock = [
         url: '/product/list',
         method: 'get',
         response: ({ query }: TQuery) => {
-            console.log('query', query);
             const data = productListData();
             return {
                 code: 20000,

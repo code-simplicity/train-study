@@ -27,7 +27,7 @@ export const resolveRoute = (modules: any) => {
 };
 
 // 数据分页
-export function pageFilter(arr: any[], page: number, pageSize: number) {
+export function pageFilter(arr: IVideoList[], page: number, pageSize: number) {
     // 页数
     let newPage = page;
     newPage = newPage * 1;
