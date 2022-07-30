@@ -36,21 +36,19 @@ class RequestHttp {
         // 响应拦截
         this.service.interceptors.response.use(
             (response: AxiosResponse) => {
-                const { data, config } = response;
-                // 请求完成之后移除本次请求
-                axiosCanceler.removePending(config);
+                debugger;
+                const { data } = response;
                 // 全局拦截返回的data.code的字段值不为20000,那么就默认是请求失败了
                 if (data.code && data.code !== ResultCodeEnum.SUCCESS) {
                     // 提示出错
-                    message.error(data.message);
+                    message.error(data.msg);
                     return Promise.reject(data);
                 }
                 // 请求成功
                 return data;
             },
-            async (error: AxiosError) => {
+            (error: AxiosError) => {
                 const { response } = error;
-                console.log('error', error);
                 // 判断请求是否超时
                 if (error.message.indexOf('timeout') !== -1) message.error('请求超时，请稍后再试');
                 // 工具返回错误的信息，执行对应的提示

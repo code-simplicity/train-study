@@ -1,9 +1,8 @@
-import Mock from 'mockjs';
+const Mock = require('mockjs');
 
 import userMock from './user';
 
 const mocksService = [...userMock];
-console.log('mocksService', mocksService);
 
 mocksService.map(item => {
     console.log('item', item);
