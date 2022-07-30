@@ -12,11 +12,11 @@ import VideoSearch from './components/VideoSearch';
 
 const VideoCenter: FC = () => {
     return (
-        <div className='flex justify-center flex-col items-center'>
-            <div className=''>
+        <div className=''>
+            <div className='mb-2'>
                 <VideoSearch />
             </div>
-            <div>
+            <div className='mx-40'>
                 <VideoContent />
             </div>
         </div>

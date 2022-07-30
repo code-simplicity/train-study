@@ -28,7 +28,6 @@ const VideoSearch: FC = () => {
                     </div>
                 </div>
             </div>
-            <div>VideoSearch</div>
         </>
     );
 };
