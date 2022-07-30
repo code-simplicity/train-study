@@ -4,6 +4,7 @@ const path = require('path');
 const MockServicePlugin = require('mock-service-plugin');
 const { whenDev } = require('@craco/craco');
 const CracoAntDesignPlugin = require('craco-antd');
+const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
 
 const {
     REACT_APP_ENV, // 环境标识
@@ -45,6 +46,13 @@ module.exports = {
     webpack: {
         alias: {
             '@': resolve('src'),
+        },
+        plugins: {
+            add: [
+                new WindiCSSWebpackPlugin({
+                    virtualModulePath: 'src',
+                }),
+            ],
         },
         // plugins: [
         //     ...whenDev(

@@ -12,9 +12,9 @@ import './styles/index.less';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ConfigProvider } from 'antd';
-
 // 导入mocks文件夹
 import './mocks';
+import './virtual:windi.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

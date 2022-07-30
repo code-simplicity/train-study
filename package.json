@@ -61,7 +61,8 @@
         "stylelint-config-prettier": "^9.0.3",
         "stylelint-config-rational-order": "^0.1.2",
         "stylelint-config-standard": "^26.0.0",
-        "stylelint-prettier": "^2.0.0"
+        "stylelint-prettier": "^2.0.0",
+        "windicss-webpack-plugin": "^1.7.5"
     },
     "eslintConfig": {
         "extends": [

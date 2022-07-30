@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>turnpage-right</title>
+    <desc>Created with Sketch.</desc>
+    <g id="视频中心" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.1.2视频中心-搜索列表" transform="translate(-1244.000000, -1306.000000)">
+            <g id="Group" transform="translate(957.000000, 1302.000000)">
+                <g id="turnpage-right" transform="translate(287.000000, 4.000000)">
+                    <rect id="矩形" fill="#FFFFFF" opacity="0.01" x="0" y="0" width="16" height="16"></rect>
+                    <polyline id="路径" stroke="#666666" transform="translate(8.559525, 8.349971) rotate(180.000000) translate(-8.559525, -8.349971) " points="11.1190498 4 6 8.5251749 11.1190498 12.6999419"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
