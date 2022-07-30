@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-25 16:34:03
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-29 12:49:52
+ * @LastEditTime: 2022-07-30 16:26:50
  * @FilePath: \train-study\src\layouts\index.tsx
  * @Description:
  */
@@ -19,7 +19,7 @@ const LayoutApp: FC = () => {
             <Layout>
                 <LayoutHeader />
                 <LayoutContent />
-                <LayoutFooter />
+                {/* <LayoutFooter /> */}
             </Layout>
         </>
     );
