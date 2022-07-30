@@ -13,18 +13,6 @@ import videoTopIcon from 'src/assets/images/videoTop.svg';
 import { ResultCodeEnum } from 'src/enum/http';
 import { getVideoList } from 'src/api/video';
 
-interface IVideoList {
-    id?: string;
-    cover?: string;
-    playCounts?: string;
-    title?: string;
-    labels?: string[];
-    description?: string;
-    sections?: string;
-    top?: boolean;
-    duration?: string;
-}
-
 const VideoList = () => {
     const [videoList, setVideoList] = useState<IVideoList[]>([]);
     // 获取一个接口试试

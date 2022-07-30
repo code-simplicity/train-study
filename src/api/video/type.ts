@@ -1,3 +1,3 @@
-export interface IUserInfo {
+export interface IVideoList {
     [x: string]: string;
 }

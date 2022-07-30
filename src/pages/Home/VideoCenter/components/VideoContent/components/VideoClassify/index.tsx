@@ -6,41 +6,28 @@
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\VideoContent\components\videoClassify\index.tsx
  * @Description:视频分类列表
  */
-import React, { useState } from 'react';
+import { message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { getVideoCategoryList } from 'src/api/videoCategory';
+import { ResultCodeEnum } from 'src/enum/http';
 
 const VideoClassify = () => {
-    const videoClassify = [
-        {
-            label: '全部分类',
-            path: 'all',
-            id: 'all',
-        },
-        {
-            label: '开放平台',
-            path: 'kfpt',
-            id: 'kfpt',
-        },
-        {
-            label: '项目管理',
-            path: 'xmgl',
-            id: 'xmgl',
-        },
-        {
-            label: '开发者',
-            path: 'kfz',
-            id: 'kfz',
-        },
-        {
-            label: '猪齿鱼',
-            path: 'zcy',
-            id: 'zcy',
-        },
-        {
-            label: '海马汇',
-            path: 'hmh',
-            id: 'hmh',
-        },
-    ];
+    const [videoCategoryList, setVideoCategoryList] = useState<IVideoCategory[]>([]);
+    // 获取一个接口试试
+    const initVideoCategoryList = async () => {
+        try {
+            const { code, msg, data } = await getVideoCategoryList();
+            if (code !== ResultCodeEnum.SUCCESS) return message.error('获取视频分类列表失败');
+            message.success(msg);
+            setVideoCategoryList(data);
+            console.log('videoCategoryList :>> ', videoCategoryList);
+        } catch (error: any) {
+            return new Error(error);
+        }
+    };
+    useEffect(() => {
+        initVideoCategoryList();
+    }, []);
     // 激活左侧栏的key
     const [videoClassifyActivate, setVideoClassifyActivate] = useState<string>('all');
     const handleActive = (id: string) => {
@@ -51,7 +38,7 @@ const VideoClassify = () => {
             <div className='bg-white flex items-center px-3 py-2 mb-4'>
                 <div className='mr-4'>视频分类</div>
                 <div className='flex items-center'>
-                    {videoClassify.map(item => {
+                    {videoCategoryList.map(item => {
                         return (
                             <div
                                 onClick={() => handleActive(item.id)}
@@ -62,7 +49,7 @@ const VideoClassify = () => {
                                         : ''
                                 }`}
                             >
-                                {item.label}
+                                {item.name}
                             </div>
                         );
                     })}

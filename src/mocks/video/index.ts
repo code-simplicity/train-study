@@ -10,10 +10,6 @@ import Mock from 'mockjs';
 import { pageFilter } from 'src/utils';
 import { videoListData } from './data';
 
-type Tbody = {
-    body: any;
-};
-
 // 数据模拟
 const videoMock = [
     {
@@ -31,6 +27,9 @@ const videoMock = [
                 msg: '获取视频成功',
             };
         },
+    },
+    {
+        url: '/video/',
     },
 ];
 

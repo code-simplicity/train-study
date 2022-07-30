@@ -6,69 +6,35 @@
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\VideoContent\components\ProductList\index.tsx
  * @Description:左侧产品列表
  */
-import React, { useState } from 'react';
+import { message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { getProductList } from 'src/api/product';
+import { ResultCodeEnum } from 'src/enum/http';
 
 const ProductList = () => {
-    const productMenu = [
-        {
-            label: '全部产品',
-            path: 'all',
-            id: 'all',
-        },
-        {
-            label: '飞猪Feida',
-            path: 'fzf',
-            id: 'fzf',
-        },
-        {
-            label: '汉得协同制造软件',
-            path: 'hdxtzzrj',
-            id: 'hdxtzzrj',
-        },
-        {
-            label: '汉得智能合同管理软件',
-            path: 'hdzhhtglrj',
-            id: 'hdzhhtglrj',
-        },
-        {
-            label: '虹珊瑚',
-            path: 'hsh',
-            id: 'hsh',
-        },
-        {
-            label: '汉得运营管理软件',
-            path: 'hdyyrjgl',
-            id: 'hdyyrjgl',
-        },
-        {
-            label: '汉得智慧财务套件软件',
-            path: 'hdzhcwtjrj',
-            id: 'hdzhcwtjrj',
-        },
-        {
-            label: '汉得运输管理软件',
-            path: 'hdysglrj',
-            id: 'hdysglrj',
-        },
-        {
-            label: '汉得清分结算软件',
-            path: 'hdqfjsrj',
-            id: 'hdqfjsrj',
-        },
-        {
-            label: '海马汇HIPPLUS',
-            path: 'hmhhp',
-            id: 'hmhhp',
-        },
-    ];
     // 激活左侧栏的key
     const [productMenuActivate, setProductMenuActivate] = useState<string>('all');
     const handleActive = (id: string) => {
         setProductMenuActivate(id);
     };
+    const [productList, setProductList] = useState<IProduct[]>([]);
+    // 获取产品列表
+    const initProductList = async () => {
+        try {
+            const { code, msg, data } = await getProductList();
+            if (code !== ResultCodeEnum.SUCCESS) return message.error('获取产品列表失败');
+            message.success(msg);
+            setProductList(data);
+        } catch (error: any) {
+            return new Error(error);
+        }
+    };
+    useEffect(() => {
+        initProductList();
+    }, []);
     return (
         <>
-            {productMenu.map(item => {
+            {productList.map(item => {
                 return (
                     <div
                         key={item.id}
@@ -79,7 +45,7 @@ const ProductList = () => {
                                 : ''
                         } `}
                     >
-                        {item.label}
+                        {item.name}
                     </div>
                 );
             })}

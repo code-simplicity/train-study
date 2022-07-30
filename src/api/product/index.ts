@@ -8,6 +8,10 @@
  */
 import defHttp from 'src/utils/http';
 
-export const getUserInfo = (): any => {
-    return defHttp.get<any>('/user/info');
+/**
+ * 获取产品列表
+ * @returns
+ */
+export const getProductList = (): any => {
+    return defHttp.get<any>('/product/list');
 };
