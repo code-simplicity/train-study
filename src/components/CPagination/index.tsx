@@ -19,18 +19,28 @@ interface ICPaginationProps {
     pageSize?: number;
     current?: number;
     total?: number;
+    initVideoList?: any;
 }
 
+// TODO:明天写完分页就行了
 const CPagination: FC<ICPaginationProps> = (props: ICPaginationProps) => {
-    const { defaultCurrent, total, pageSize, current } = props;
+    const { total, pageSize, current, initVideoList } = props;
+    // 控制分页
+    const handleOnChangePage = (page: number, pageSize: number) => {
+        // 首先先判断当前产品的id和分类的id是不是都是all，
+        // 如果都是all，走另外一个接口请求回调，如果不是那就走另外的，保证返回的值是当前选中的类型
+        initVideoList({
+            current: page,
+            pageSize: pageSize,
+        });
+    };
     return (
         <>
             <Pagination
-                defaultCurrent={defaultCurrent}
                 total={total}
                 pageSize={pageSize}
                 current={current}
-                hideOnSinglePage={true}
+                onChange={handleOnChangePage}
                 itemRender={(page, type) => {
                     if (type === 'page') {
                         return <span className='cursor-pointer'>{page}</span>;

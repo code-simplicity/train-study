@@ -8,12 +8,11 @@
  */
 import { Spin } from 'antd';
 import React, { FC } from 'react';
-import styles from './index.module.less';
 
 const SpinLoading: FC = () => {
     return (
         <Spin
-            className={styles['spin-loading-container']}
+            className='flex items-center justify-center w-full h-full'
             delay={500}
             size='large'
             tip={<span>正在加载中...</span>}

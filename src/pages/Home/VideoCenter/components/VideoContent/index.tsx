@@ -18,24 +18,42 @@ interface IVideoContentProps {
     setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
     initVideoList: any;
     videoList: IVideoList[];
+    pageParams: any;
+    setPageParams: any;
 }
 
 const VideoContent: FC<IVideoContentProps> = (props: IVideoContentProps) => {
-    const { videoList, setVideoList, initVideoList } = props;
+    const { videoList, setVideoList, initVideoList, pageParams, setPageParams } = props;
+
     return (
         <div className='flex'>
             <div className='w-60 bg-white rounded mr-4'>
-                <ProductList setVideoList={setVideoList} initVideoList={initVideoList} />
+                <ProductList
+                    setVideoList={setVideoList}
+                    initVideoList={initVideoList}
+                    pageParams={pageParams}
+                    setPageParams={setPageParams}
+                />
             </div>
             <div className='md:flex-1'>
-                <VideoClassify setVideoList={setVideoList} initVideoList={initVideoList} />
+                <VideoClassify
+                    setVideoList={setVideoList}
+                    initVideoList={initVideoList}
+                    pageParams={pageParams}
+                    setPageParams={setPageParams}
+                />
                 {/* 栅格布局实现九宫格 */}
                 <div className='grid grid-cols-3 gap-6'>
                     <VideoList videoList={videoList} />
                 </div>
                 {/* 分页 */}
                 <div className='flex items-center justify-end mt-2'>
-                    <CPagination defaultCurrent={1} total={20} pageSize={1} current={1} />
+                    <CPagination
+                        total={pageParams.total}
+                        pageSize={pageParams.pageSize}
+                        current={pageParams.current}
+                        initVideoList={initVideoList}
+                    />
                 </div>
             </div>
         </div>

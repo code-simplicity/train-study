@@ -15,10 +15,12 @@ import { ResultCodeEnum } from 'src/enum/http';
 interface IProductListProps {
     setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
     initVideoList: any;
+    pageParams: any;
+    setPageParams: any;
 }
 
 const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
-    const { setVideoList, initVideoList } = props;
+    const { setVideoList, initVideoList, pageParams, setPageParams } = props;
     // 激活左侧栏的key
     const [productMenuActivate, setProductMenuActivate] = useState<string>('all');
     // 点击切换实现产品获取视频列表
@@ -26,16 +28,25 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
         setProductMenuActivate(id);
         const params = {
             productId: id,
-            page: 1,
-            pageSize: 9,
+            page: pageParams.current,
+            pageSize: pageParams.pageSize,
         };
         try {
+            const dataParams = {
+                current: pageParams.current,
+                pageSize: pageParams.pageSize,
+            };
             // 如果id等于这个就走初始化
-            if (id === 'all') return initVideoList();
+            if (id === 'all') return initVideoList(dataParams);
             const { code, msg, data } = await getVideoListByProductId(params);
             if (code !== ResultCodeEnum.SUCCESS) return message.error(msg);
             message.success(msg);
             setVideoList(data.list);
+            setPageParams({
+                current: data.page,
+                pageSize: data.pageSize,
+                total: data.total,
+            });
         } catch (error: any) {
             return new Error(error);
         }

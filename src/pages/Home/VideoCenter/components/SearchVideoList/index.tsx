@@ -10,27 +10,30 @@ import { PlaySquareOutlined } from '@ant-design/icons';
 import { Image } from 'antd';
 import React, { FC } from 'react';
 import CEmpty from 'src/components/CEmpty';
+import CPagination from 'src/components/CPagination';
 import styles from './index.module.less';
 
 interface ISearchVideoListProps {
     videoList: IVideoList[];
+    pageParams?: any;
+    setPageParams?: any;
+    initVideoList?: any;
 }
 
 const SearchVideoList: FC<ISearchVideoListProps> = (props: ISearchVideoListProps) => {
-    const { videoList } = props;
-
+    const { videoList, pageParams, setPageParams, initVideoList } = props;
     return (
         <div>
             {/* 搜索结果 */}
             <div className='bg-white flex items-center px-3 py-2 mb-4 rounded-sm'>
-                共找到{<span className='text-yellow-600 mx-1'>{videoList.length}</span>}个
+                共找到{<span className='text-yellow-600 mx-1'>{pageParams.total}</span>}个
                 {<span className='text-yellow-600 mx-1'>“{1}”</span>}相关视频
             </div>
             {/* 搜索视频列表 */}
             {videoList && videoList.length ? (
                 videoList.map(item => {
                     return (
-                        <div className='flex bg-white rounded-sm p-3 mb-4'>
+                        <div key={item.id} className='flex bg-white rounded-sm p-3 mb-4'>
                             <div className='w-60 mr-4'>
                                 <div className='mb-2'>
                                     <Image
@@ -55,7 +58,10 @@ const SearchVideoList: FC<ISearchVideoListProps> = (props: ISearchVideoListProps
                                 <div className='flex items-center my-4'>
                                     {item.labels.map(label => {
                                         return (
-                                            <div className='px-2 py-1 bg-light-700 mr-4'>
+                                            <div
+                                                key={label}
+                                                className='px-2 py-1 bg-light-700 mr-4'
+                                            >
                                                 {label}
                                             </div>
                                         );
@@ -71,6 +77,15 @@ const SearchVideoList: FC<ISearchVideoListProps> = (props: ISearchVideoListProps
             ) : (
                 <CEmpty />
             )}
+            {/* 分页 */}
+            <div className='flex items-center justify-end mt-2'>
+                <CPagination
+                    total={pageParams.total}
+                    pageSize={pageParams.pageSize}
+                    current={pageParams.current}
+                    initVideoList={initVideoList}
+                />
+            </div>
         </div>
     );
 };

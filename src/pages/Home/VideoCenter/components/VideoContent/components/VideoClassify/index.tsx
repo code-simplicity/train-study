@@ -15,10 +15,12 @@ import { ResultCodeEnum } from 'src/enum/http';
 interface IVideoClassifyProps {
     setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
     initVideoList: any;
+    pageParams: any;
+    setPageParams: any;
 }
 
 const VideoClassify: FC<IVideoClassifyProps> = (props: IVideoClassifyProps) => {
-    const { setVideoList, initVideoList } = props;
+    const { setVideoList, initVideoList, pageParams, setPageParams } = props;
 
     const [videoCategoryList, setVideoCategoryList] = useState<IVideoCategory[]>([]);
     // 获取一个接口试试
@@ -41,16 +43,25 @@ const VideoClassify: FC<IVideoClassifyProps> = (props: IVideoClassifyProps) => {
         setVideoClassifyActivate(id);
         const params = {
             videoCategoryId: id,
-            page: 1,
-            pageSize: 9,
+            page: pageParams.current,
+            pageSize: pageParams.pageSize,
         };
         try {
+            const dataParams = {
+                current: pageParams.current,
+                pageSize: pageParams.pageSize,
+            };
             // 如果id等于这个就走初始化
-            if (id === 'all') return initVideoList();
+            if (id === 'all') return initVideoList(dataParams);
             const { code, msg, data } = await getVideoListByVideoCategoryId(params);
             if (code !== ResultCodeEnum.SUCCESS) return message.error(msg);
             message.success(msg);
             setVideoList(data.list);
+            setPageParams({
+                current: data.page,
+                pageSize: data.pageSize,
+                total: data.total,
+            });
         } catch (error: any) {
             return new Error(error);
         }

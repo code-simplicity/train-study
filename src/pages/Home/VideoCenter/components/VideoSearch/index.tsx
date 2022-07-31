@@ -16,10 +16,12 @@ interface VideoSearchProps {
     setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
     initVideoList: any;
     setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
+    pageParams: any;
+    setPageParams: any;
 }
 
 const VideoSearch: FC<VideoSearchProps> = (props: VideoSearchProps) => {
-    const { setIsSearch, initVideoList, setVideoList } = props;
+    const { setIsSearch, initVideoList, setVideoList, pageParams, setPageParams } = props;
     // 输入框的ref
     const searchInputRef = useRef<any>();
     // 输入框回车事件
@@ -32,13 +34,18 @@ const VideoSearch: FC<VideoSearchProps> = (props: VideoSearchProps) => {
                 setIsSearch(true);
                 const params = {
                     title: searchInputRef.current!.input.value,
-                    page: 1,
-                    pageSize: 10,
+                    page: pageParams.current,
+                    pageSize: pageParams.pageSize,
                 };
                 const { data, code, msg } = await searchVideoList(params);
                 if (code !== ResultCodeEnum.SUCCESS) return message.error(msg);
                 message.success(msg);
                 setVideoList(data.list);
+                setPageParams({
+                    current: data.page,
+                    pageSize: data.pageSize,
+                    total: data.total,
+                });
             } catch (error: any) {
                 return new Error(error);
             }
@@ -46,7 +53,7 @@ const VideoSearch: FC<VideoSearchProps> = (props: VideoSearchProps) => {
             setIsSearch(false);
             message.error('您好像未输入关键字哦！！！');
             // 这里有待优化
-            initVideoList();
+            initVideoList(pageParams);
         }
     };
     return (

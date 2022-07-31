@@ -89,7 +89,6 @@ const videoMock = [
             const result: IVideoList[] = listData.filter(item => {
                 return item.title?.includes(title) ? item : null;
             });
-            console.log('result ===>', result);
             if (result) {
                 const data = pageFilter(result, page, pageSize);
                 return {

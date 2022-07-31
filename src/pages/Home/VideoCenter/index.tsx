@@ -18,24 +18,34 @@ const VideoCenter: FC = () => {
     // 控制搜索，通过一个状态回调来进行页面的切换
     const [isSearch, setIsSearch] = useState<boolean>(false);
     const [videoList, setVideoList] = useState<IVideoList[]>([]);
+    const [pageParams, setPageParams] = useState({
+        current: 1,
+        pageSize: 9,
+        total: 100,
+    });
 
     // 获取一个接口试试
-    const initVideoList = async () => {
+    const initVideoList = async (args: any) => {
         const params = {
-            page: 1,
-            pageSize: 9,
+            page: args.current,
+            pageSize: args.pageSize,
         };
         try {
             const { data, code, msg } = await getVideoList(params);
             if (code !== ResultCodeEnum.SUCCESS) return message.error('获取视频失败');
             message.success(msg);
             setVideoList(data.list);
+            setPageParams({
+                current: data.page,
+                pageSize: data.pageSize,
+                total: data.total,
+            });
         } catch (error: any) {
             return new Error(error);
         }
     };
     useEffect(() => {
-        initVideoList();
+        initVideoList(pageParams);
     }, []);
     return (
         <div className=''>
@@ -44,13 +54,22 @@ const VideoCenter: FC = () => {
                     setIsSearch={setIsSearch}
                     initVideoList={initVideoList}
                     setVideoList={setVideoList}
+                    pageParams={pageParams}
+                    setPageParams={setPageParams}
                 />
             </div>
             <div className='md:mx-40'>
                 {isSearch ? (
-                    <SearchVideoList videoList={videoList} />
+                    <SearchVideoList
+                        pageParams={pageParams}
+                        setPageParams={setPageParams}
+                        videoList={videoList}
+                        initVideoList={initVideoList}
+                    />
                 ) : (
                     <VideoContent
+                        pageParams={pageParams}
+                        setPageParams={setPageParams}
                         videoList={videoList}
                         initVideoList={initVideoList}
                         setVideoList={setVideoList}
