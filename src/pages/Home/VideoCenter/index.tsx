@@ -13,6 +13,7 @@ import SearchVideoList from './components/SearchVideoList';
 import { ResultCodeEnum } from 'src/enum/http';
 import { getVideoList } from 'src/api/video';
 import { message } from 'antd';
+import useLoading from 'src/hooks/useLoading';
 
 const VideoCenter: FC = () => {
     // 控制搜索，通过一个状态回调来进行页面的切换
@@ -23,9 +24,12 @@ const VideoCenter: FC = () => {
         pageSize: 9,
         total: 100,
     });
+    // 加载状态的hooks
+    const { loadingStore } = useLoading();
 
     // 获取一个接口试试
     const initVideoList = async (args: any) => {
+        loadingStore.setLoadingStatus(true);
         const params = {
             page: args.current,
             pageSize: args.pageSize,
@@ -40,7 +44,9 @@ const VideoCenter: FC = () => {
                 pageSize: data.pageSize,
                 total: data.total,
             });
+            loadingStore.setLoadingStatus(false);
         } catch (error: any) {
+            loadingStore.setLoadingStatus(false);
             return new Error(error);
         }
     };

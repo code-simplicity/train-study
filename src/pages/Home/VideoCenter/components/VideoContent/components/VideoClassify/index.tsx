@@ -11,6 +11,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { getVideoListByVideoCategoryId } from 'src/api/video';
 import { getVideoCategoryList } from 'src/api/videoCategory';
 import { ResultCodeEnum } from 'src/enum/http';
+import useLoading from 'src/hooks/useLoading';
 
 interface IVideoClassifyProps {
     setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
@@ -23,6 +24,9 @@ const VideoClassify: FC<IVideoClassifyProps> = (props: IVideoClassifyProps) => {
     const { setVideoList, initVideoList, pageParams, setPageParams } = props;
 
     const [videoCategoryList, setVideoCategoryList] = useState<IVideoCategory[]>([]);
+
+    const { loadingStore } = useLoading();
+
     // 获取一个接口试试
     const initVideoCategoryList = async () => {
         try {
@@ -41,6 +45,7 @@ const VideoClassify: FC<IVideoClassifyProps> = (props: IVideoClassifyProps) => {
     const [videoClassifyActivate, setVideoClassifyActivate] = useState<string>('all');
     const handleActive = async (id: string) => {
         setVideoClassifyActivate(id);
+        loadingStore.setLoadingStatus(true);
         const params = {
             videoCategoryId: id,
             page: pageParams.current,
@@ -62,7 +67,9 @@ const VideoClassify: FC<IVideoClassifyProps> = (props: IVideoClassifyProps) => {
                 pageSize: data.pageSize,
                 total: data.total,
             });
+            loadingStore.setLoadingStatus(false);
         } catch (error: any) {
+            loadingStore.setLoadingStatus(false);
             return new Error(error);
         }
     };

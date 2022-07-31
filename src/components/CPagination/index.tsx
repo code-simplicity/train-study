@@ -37,6 +37,7 @@ const CPagination: FC<ICPaginationProps> = (props: ICPaginationProps) => {
     return (
         <>
             <Pagination
+                pageSizeOptions={[9, 18, 54, 108]}
                 total={total}
                 pageSize={pageSize}
                 current={current}

@@ -11,6 +11,7 @@ import { Button, Image, Input, message } from 'antd';
 import videoSearchBg from 'src/assets/images/videoSearchBg.png';
 import { searchVideoList } from 'src/api/video';
 import { ResultCodeEnum } from 'src/enum/http';
+import useLoading from 'src/hooks/useLoading';
 
 interface VideoSearchProps {
     setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +27,9 @@ const VideoSearch: FC<VideoSearchProps> = (props: VideoSearchProps) => {
     const searchInputRef = useRef<any>();
     // 输入框回车事件
     // 监听输入框的值是否改变，并且变为空，如果变为空那么就不进行搜索
+    const { loadingStore } = useLoading();
     const handleSearch = async () => {
+        loadingStore.setLoadingStatus(true);
         // 如果输入框的存在值
         if (searchInputRef.current!.input.value && searchInputRef.current!.input.value !== '') {
             try {
@@ -46,7 +49,9 @@ const VideoSearch: FC<VideoSearchProps> = (props: VideoSearchProps) => {
                     pageSize: data.pageSize,
                     total: data.total,
                 });
+                loadingStore.setLoadingStatus(false);
             } catch (error: any) {
+                loadingStore.setLoadingStatus(false);
                 return new Error(error);
             }
         } else if (searchInputRef.current!.input.value === '') {

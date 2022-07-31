@@ -7,12 +7,14 @@
  * @Description:store的构建函数
  */
 import { createContext, useContext } from 'react';
-import { TodoStore, TODO_STORE } from './modules/TodoList/TodoList';
+import { TodoStore, TODO_STORE } from './modules/TodoList';
+import { LoadingStore, LOADING_STORE } from './modules/Loading';
 
 // 创建一个store函数
 function createStore() {
     return {
         [TODO_STORE]: new TodoStore(),
+        [LOADING_STORE]: new LoadingStore(),
     };
 }
 

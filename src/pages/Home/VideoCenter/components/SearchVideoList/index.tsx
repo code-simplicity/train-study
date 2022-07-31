@@ -11,6 +11,8 @@ import { Image } from 'antd';
 import React, { FC } from 'react';
 import CEmpty from 'src/components/CEmpty';
 import CPagination from 'src/components/CPagination';
+import SpinLoading from 'src/components/SpinLoading';
+import useLoading from 'src/hooks/useLoading';
 import styles from './index.module.less';
 
 interface ISearchVideoListProps {
@@ -22,6 +24,8 @@ interface ISearchVideoListProps {
 
 const SearchVideoList: FC<ISearchVideoListProps> = (props: ISearchVideoListProps) => {
     const { videoList, pageParams, setPageParams, initVideoList } = props;
+    const { loadingStore } = useLoading();
+
     return (
         <div>
             {/* 搜索结果 */}
@@ -31,49 +35,57 @@ const SearchVideoList: FC<ISearchVideoListProps> = (props: ISearchVideoListProps
             </div>
             {/* 搜索视频列表 */}
             {videoList && videoList.length ? (
-                videoList.map(item => {
-                    return (
-                        <div key={item.id} className='flex bg-white rounded-sm p-3 mb-4'>
-                            <div className='w-60 mr-4'>
-                                <div className='mb-2'>
-                                    <Image
-                                        className='object-cover rounded-tl-sm rounded-tr-sm'
-                                        height={150}
-                                        width='100%'
-                                        src={item.cover}
-                                        alt={item.title}
-                                        preview={false}
-                                    />
+                <>
+                    {loadingStore.isLoading ? (
+                        <SpinLoading />
+                    ) : (
+                        videoList.map(item => {
+                            return (
+                                <div key={item.id} className='flex bg-white rounded-sm p-3 mb-4'>
+                                    <div className='w-60 mr-4'>
+                                        <div className='mb-2'>
+                                            <Image
+                                                className='object-cover rounded-tl-sm rounded-tr-sm'
+                                                height={150}
+                                                width='100%'
+                                                src={item.cover}
+                                                alt={item.title}
+                                                preview={false}
+                                            />
+                                        </div>
+                                        <div className='flex items-center'>
+                                            <PlaySquareOutlined />
+                                            <span>{item.playCounts}播放</span>
+                                        </div>
+                                    </div>
+                                    <div className='flex-1'>
+                                        <div className='flex items-center justify-between'>
+                                            <p className='text-xl'>{item.title}</p>
+                                            <div className=''>{item.sections}节</div>
+                                        </div>
+                                        <div className='flex items-center my-4'>
+                                            {item.labels.map(label => {
+                                                return (
+                                                    <div
+                                                        key={label}
+                                                        className='px-2 py-1 bg-light-700 mr-4'
+                                                    >
+                                                        {label}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        <div
+                                            className={`text-cool-gray-500 ${styles['word-description']}`}
+                                        >
+                                            {item.description}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className='flex items-center'>
-                                    <PlaySquareOutlined />
-                                    <span>{item.playCounts}播放</span>
-                                </div>
-                            </div>
-                            <div className='flex-1'>
-                                <div className='flex items-center justify-between'>
-                                    <p className='text-xl'>{item.title}</p>
-                                    <div className=''>{item.sections}节</div>
-                                </div>
-                                <div className='flex items-center my-4'>
-                                    {item.labels.map(label => {
-                                        return (
-                                            <div
-                                                key={label}
-                                                className='px-2 py-1 bg-light-700 mr-4'
-                                            >
-                                                {label}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                                <div className={`text-cool-gray-500 ${styles['word-description']}`}>
-                                    {item.description}
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })
+                            );
+                        })
+                    )}
+                </>
             ) : (
                 <CEmpty />
             )}

@@ -10,6 +10,8 @@ import { message } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import { getVideoList } from 'src/api/video';
 import CPagination from 'src/components/CPagination';
+import SpinLoading from 'src/components/SpinLoading';
+import useLoading from 'src/hooks/useLoading';
 import ProductList from './components/ProductList';
 import VideoClassify from './components/VideoClassify';
 import VideoList from './components/VideoList';
@@ -24,10 +26,10 @@ interface IVideoContentProps {
 
 const VideoContent: FC<IVideoContentProps> = (props: IVideoContentProps) => {
     const { videoList, setVideoList, initVideoList, pageParams, setPageParams } = props;
-
+    const { loadingStore } = useLoading();
     return (
         <div className='flex'>
-            <div className='w-60 bg-white rounded mr-4'>
+            <div className='w-60 bg-white rounded mr-4 h-full'>
                 <ProductList
                     setVideoList={setVideoList}
                     initVideoList={initVideoList}
@@ -44,7 +46,7 @@ const VideoContent: FC<IVideoContentProps> = (props: IVideoContentProps) => {
                 />
                 {/* 栅格布局实现九宫格 */}
                 <div className='grid grid-cols-3 gap-6'>
-                    <VideoList videoList={videoList} />
+                    {loadingStore.isLoading ? <SpinLoading /> : <VideoList videoList={videoList} />}
                 </div>
                 {/* 分页 */}
                 <div className='flex items-center justify-end mt-2'>
