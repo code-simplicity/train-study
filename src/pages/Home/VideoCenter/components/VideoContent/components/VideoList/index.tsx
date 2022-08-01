@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-30 16:32:00
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 20:28:53
+ * @LastEditTime: 2022-08-01 10:56:38
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\VideoContent\components\VideoList\index.tsx
  * @Description:
  */
@@ -11,6 +11,7 @@ import { PlaySquareOutlined } from '@ant-design/icons';
 import { Image } from 'antd';
 import videoTopIcon from 'src/assets/images/videoTop.svg';
 import CEmpty from 'src/components/CEmpty';
+import useStores from 'src/hooks/useStores';
 
 interface IVideoListProps {
     videoList: IVideoList[];
@@ -18,10 +19,12 @@ interface IVideoListProps {
 
 const VideoList: FC<IVideoListProps> = (props: IVideoListProps) => {
     const { videoList } = props;
+    // 自定义store的hooks
+    const { videoCenterStore } = useStores();
     return (
         <>
-            {videoList && videoList.length ? (
-                videoList.map(item => {
+            {videoCenterStore.getVideoList.length ? (
+                videoCenterStore.getVideoList.map(item => {
                     return (
                         <div key={item.id} className='bg-white rounded-sm'>
                             <div className='relative'>

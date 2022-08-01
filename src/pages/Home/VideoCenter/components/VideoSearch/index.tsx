@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-30 12:08:21
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 19:42:48
+ * @LastEditTime: 2022-08-01 10:30:09
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\VideoSearch\index.tsx
  * @Description:搜索头部组件
  */
@@ -12,9 +12,9 @@ import videoSearchBg from 'src/assets/images/videoSearchBg.png';
 import { searchVideoList } from 'src/api/video';
 import { ResultCodeEnum } from 'src/enum/http';
 import useLoading from 'src/hooks/useLoading';
+import useStores from 'src/hooks/useStores';
 
 interface VideoSearchProps {
-    setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
     initVideoList: any;
     setVideoList: React.Dispatch<React.SetStateAction<IVideoList[]>>;
     pageParams: any;
@@ -22,19 +22,20 @@ interface VideoSearchProps {
 }
 
 const VideoSearch: FC<VideoSearchProps> = (props: VideoSearchProps) => {
-    const { setIsSearch, initVideoList, setVideoList, pageParams, setPageParams } = props;
+    const { initVideoList, setVideoList, pageParams, setPageParams } = props;
+    const { loadingStore, videoCenterStore } = useStores();
+
     // 输入框的ref
     const searchInputRef = useRef<any>();
     // 输入框回车事件
     // 监听输入框的值是否改变，并且变为空，如果变为空那么就不进行搜索
-    const { loadingStore } = useLoading();
     const handleSearch = async () => {
         loadingStore.setLoadingStatus(true);
         // 如果输入框的存在值
         if (searchInputRef.current!.input.value && searchInputRef.current!.input.value !== '') {
             try {
                 // 触发搜索
-                setIsSearch(true);
+                videoCenterStore.setIsSearch(true);
                 const params = {
                     title: searchInputRef.current!.input.value,
                     page: pageParams.current,
@@ -55,7 +56,7 @@ const VideoSearch: FC<VideoSearchProps> = (props: VideoSearchProps) => {
                 return new Error(error);
             }
         } else if (searchInputRef.current!.input.value === '') {
-            setIsSearch(false);
+            videoCenterStore.setIsSearch(false);
             message.error('您好像未输入关键字哦！！！');
             // 这里有待优化
             initVideoList(pageParams);

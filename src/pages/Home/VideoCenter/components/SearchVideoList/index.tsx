@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-30 17:19:08
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-30 19:47:25
+ * @LastEditTime: 2022-08-01 10:29:00
  * @FilePath: \train-study\src\pages\Home\VideoCenter\components\SearchVideoList\index.tsx
  * @Description:搜索视频列表
  */
@@ -12,7 +12,7 @@ import React, { FC } from 'react';
 import CEmpty from 'src/components/CEmpty';
 import CPagination from 'src/components/CPagination';
 import SpinLoading from 'src/components/SpinLoading';
-import useLoading from 'src/hooks/useLoading';
+import useStores from 'src/hooks/useStores';
 import styles from './index.module.less';
 
 interface ISearchVideoListProps {
@@ -24,7 +24,7 @@ interface ISearchVideoListProps {
 
 const SearchVideoList: FC<ISearchVideoListProps> = (props: ISearchVideoListProps) => {
     const { videoList, pageParams, setPageParams, initVideoList } = props;
-    const { loadingStore } = useLoading();
+    const { loadingStore } = useStores();
 
     return (
         <div>
